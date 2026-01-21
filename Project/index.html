@@ -1,39 +1,106 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="index.css">
-    </head>
-    <body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="index.css">
+</head>
 
-        
-        <header id="head">
-            <p id="header-text">Welcome to Scotland Yard</p>
+<body>
+  <div id="head">
+    <p id="header-text">Welcome to Scotland Yard</p>
+  </div>
 
-        </header>
+  <div id="main-containers">
+    <div id="game-container">
+      <div id="game">
+        <h1>Game Location</h1>
+      </div>
+    </div>
 
-        <!-- <p style="background-image: url('https://i.pinimg.com/736x/d6/c9/ad/d6c9ad2297a0639a4e7620ed39a1e5d3.jpg');"></p> -->
-        
-        <h1 id="title">Scotland Yard</h1>
+    <div id="right-column">
+      <div id="scoreboard-container">
+        <div id="scoreboard">
+          <table id="scoreboard-table">
+            <thead>
+              <tr>
+                <th>Move</th>
+                <th>Player 1</th>
+                <th>Player 2</th>
+                <th>Player 3</th>
+                <th>Player 4</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Move 1</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>Move 2</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>Move 3</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>Move 4</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>Move 5</td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-        <footer id="footer">
-            <p>© 2024 Scotland Yard. All rights reserved.</p>
-        </footer>
+      <div id="info-container">
+        <h2>Game Information</h2>
+        <button class="button" type="button">New Game</button>
+        <button class="button" id="rulesBtn" type="button">Rules</button>
+      </div>
+    </div>
+  </div>
+
+  <footer id="footer">
+    <p>©2024 Scotland Yard. All rights reserved.</p>
+  </footer>
+
+  <!-- Modal MUST be here (after footer) -->
+  <div id="rulesModal" class="modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="rulesTitle">
+      <button class="modal-close" id="rulesCloseBtn" type="button" aria-label="Close rules">&times;</button>
+      <h2 id="rulesTitle">Game Rules</h2>
+
+      <div class="rules-text">
+        <p><strong>Objective:</strong> Detectives must catch Dr. X. Dr. X must evade capture until the final move.</p>
+        <ol>
+          <li><strong>Roles:</strong> 1 player is Dr. X, the rest are Detectives.</li>
+          <li><strong>Turns:</strong> Players take turns moving to a connected location.</li>
+          <li><strong>Capture:</strong> If a Detective lands on Dr. X’s location, Dr. X is caught.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const rulesBtn = document.getElementById("rulesBtn");
+    const modal = document.getElementById("rulesModal");
+    const closeBtn = document.getElementById("rulesCloseBtn");
+
+    function openRules() {
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+    }
+
+    function closeRules() {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+
+    rulesBtn.addEventListener("click", openRules);
+    closeBtn.addEventListener("click", closeRules);
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeRules();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) closeRules();
+    });
+  </script>
+</body>
 
 
-        
-        
-        
-
-        
-        <script src="" async defer></script>
-    </body>
 </html>
