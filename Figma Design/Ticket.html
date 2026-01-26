@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ticket Panel</title>
+  <link rel="stylesheet" href="Ticket.css" />
+</head>
+<body>
+  <div class="ticket-panel">
+    <div class="ticket ticket-taxi" data-ticket="TAXI">TAXI</div>
+    <div class="ticket ticket-2x" data-ticket="2X">2X</div>
+    <div class="ticket ticket-line ticket-bus" data-ticket="Bus">
+      <div class="ticket-line-inner"></div>
+      <div class="ticket-line-circle"></div>
+      <span class="ticket-label">Bus</span>
+    </div>
+    <div class="ticket ticket-line ticket-underground" data-ticket="Underground">
+      <div class="ticket-line-inner"></div>
+      <div class="ticket-line-circle"></div>
+      <span class="ticket-label">UnderGround</span>
+    </div>
+    <div class="ticket ticket-line ticket-black" data-ticket="Black Ticket">
+      <div class="ticket-line-inner"></div>
+      <div class="ticket-line-circle"></div>
+      <span class="ticket-label">Black Ticket</span>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.ticket').forEach(ticket => {
+      ticket.addEventListener('click', () => {
+        const type = ticket.getAttribute('data-ticket');
+        console.log('Ticket clicked:', type);
+        alert('You clicked: ' + type);
+
+      });
+    });
+  </script>
+</body>
+</html>
