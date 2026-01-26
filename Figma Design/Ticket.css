@@ -1,0 +1,159 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+.ticket-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ticket {
+ 
+  width: 200px;       /* Wider than tall */
+  height: 100px;       /* Shorter height */
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  position: relative;
+}
+
+
+
+.ticket:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* TAXI */
+.ticket-taxi {
+  background: #ffd600;
+  color: #000;
+}
+
+/* 2X */
+.ticket-2x {
+  background: #ffffff;
+  color: #ff7a00;
+  position: relative;
+  overflow: hidden;
+}
+
+.ticket-2x::before,
+.ticket-2x::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #ff7a00;
+}
+
+.ticket-2x::before {
+  top: 14px;
+}
+
+.ticket-2x::after {
+  bottom: 14px;
+}
+
+/* Shared layout for Bus, Underground, Black Ticket */
+.ticket-line {
+  position: relative;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+.ticket-line-inner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 18px;
+  background: #ffffff;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.ticket-line-circle {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 4px solid #ffffff;
+  background: transparent;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ticket-label {
+  position: relative;
+  z-index: 1;
+}
+
+.ticket-bus {
+  background: #1bb34a;
+  color: #1bb34a;
+}
+
+.ticket-underground {
+  background: #e0001a;
+  color: #e0001a;
+}
+
+.ticket-black {
+  background: #111111;
+  color: #111111;
+}
+/* ============================
+   SUBTLE TICKET ANIMATIONS
+   ============================ */
+
+/* Smooth hover + glow */
+.ticket {
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        opacity 0.18s ease;
+}
+
+/* Gentle lift on hover */
+.ticket:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+    opacity: 0.97;
+}
+
+/* Soft press on click */
+.ticket:active {
+    transform: scale(0.96);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Fade-in entrance animation */
+@keyframes ticketFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ticket {
+    animation: ticketFadeIn 0.45s ease-out;
+}
