@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    <script>
+        function move(detective, locationTo, method){
+            var move = {detective, locationTo, method};
+            socket.send(move);
+        }
+    </script>
+    <body>
+        <button onclick="move('red-detective', 130, 'taxi')">Move Detective</a>
+    </body>
+</html>
