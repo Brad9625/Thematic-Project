@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+
     <script>
-        function move(detective, locationTo, method){
-            var move = {detective, locationTo, method};
-            socket.send(move);
+        const socket=io();
+
+        function move(detective, locationTo, method)
+        {
+            socket.emit(
+                'move', 
+                {
+                    detective,
+                    locationTo,
+                    method
+                }
+            );
         }
     </script>
     <body>
-        <button onclick="move('red-detective', 130, 'taxi')">Move Detective</a>
+        <button onclick="move('red-detective', '130', 'taxi')">Move Detective</button>
     </body>
 </html>
