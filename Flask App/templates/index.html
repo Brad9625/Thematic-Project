@@ -6,8 +6,20 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="GameBoard.CSS">
+    <link rel="stylesheet" href="{{ url_for('static',filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='GameBoard.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+      
+      const socket = io();
+
+      socket.on("detMove", function(data) {
+            var loc = document.getElementById(data['detective']);
+            var pos = document.getElementById(data['locationTo']);
+            loc.style.left = pos.style.left;
+            loc.style.top = pos.style.top;
+        });
+    </script>
 </head>
 
 <body>
@@ -25,8 +37,10 @@
                 <img id="game-map" src="temp.png" alt="Game Map">
 
                 <!-- Optional marker -->
-                <div class="marker test1" style="top: 13%; left: 34%;"></div>
-
+                <div id="red-detective" class="marker" style="position: absolute; top: 20%; left: 20%;"></div>
+                
+                <!-- Locations -->
+                <div id="130" style="display: none; position: absolute; top: 13%; left: 34%; width:1px; height:1px;"></div> <!-- style parameters later to be determined by Flask param-->
             </div>
       </div>
     </div>
@@ -63,7 +77,9 @@
     </div>
   </div>
 
-
+  <footer id="footer">
+    <p>©2024 Scotland Yard. All rights reserved.</p>
+  </footer>
 
 
   <div id="rulesModal" class="modal" aria-hidden="true">
@@ -90,9 +106,7 @@
     </div>
   </div>
 
-  <footer id="footer">
-    <p>©2024 Scotland Yard. All rights reserved.</p>
-  </footer>
+
 
   
 

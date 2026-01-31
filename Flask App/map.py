@@ -1,4 +1,4 @@
-from node import Node, Location
+from type import Type
 
 class Node:    
     def __init__(self, type: Type, neighbours: list):
@@ -23,7 +23,9 @@ class Node:
         
         
 class Location(Node):
-    def __init__(self, id: int):
+    def __init__(self, id: int, positionX: int, positionY: int):
+        self.X = positionX
+        self.Y = positionY
         self._id = id
         self._type = Type.Location #automatically set type to be location
         self._neighbours = [] #blank neighbour set
