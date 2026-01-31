@@ -58,7 +58,9 @@
       <div id="info-container">
         <h2>Game Information</h2>
         <button class="button" id="newGameBtn" type="button">New Game</button>
+        <button class="button" id="joinFromTVBtn" type="button">Join on Phone</button>
         <button class="button" id="rulesBtn" type="button">Rules</button>
+        <button class="button" id="gameInfoBtn" type="button" disabled>Game Info</button>
       </div>
     </div>
   </div>
@@ -78,9 +80,33 @@
           <button id="copyGameLinkBtn" class="button" type="button">Copy Join Link</button>
           <button id="copyGameCodeBtn" class="button" type="button">Copy Code</button>
         </div>
+
         <div style="margin-top:10px;">
           <img id="gameQr" alt="QR code" src="" style="width:150px; height:150px; border:2px solid lime; background:white;" />
         </div>
+
+        <hr style="margin:12px 0; border-color: #444;" />
+
+        <div style="margin-top:8px;">
+          <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px;">
+            <button id="assignPlayersBtn" class="button" type="button">Assign Players</button>
+            <button id="randomizeRolesBtn" class="button" type="button">Randomize Roles</button>
+          </div>
+          <div><strong>Players</strong></div>
+          <div id="playerList" style="margin-top:8px; color:linen; font-family:'Lucida Console', monospace;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Info Modal (shows same roles in a separate UI) -->
+  <div id="gameInfoModal" class="modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="gameInfoTitle">
+      <button class="modal-close" id="gameInfoCloseBtn" type="button" aria-label="Close game info">&times;</button>
+      <h2 id="gameInfoTitle">Game Information</h2>
+      <div class="rules-text">
+        <p><strong>Game Code:</strong> <span id="gameInfoCode" style="color:linen; font-weight:700;"></span></p>
+        <div id="gameInfoPlayers" style="margin-top:8px; color:linen; font-family:'Lucida Console', monospace;"></div>
       </div>
     </div>
   </div>

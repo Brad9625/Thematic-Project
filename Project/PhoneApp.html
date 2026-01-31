@@ -26,9 +26,14 @@
             .col { flex:1; }
             h1 { font-size:20px; margin:0 0 8px 0; color:linen; }
             .tickets { display:flex; gap:6px; flex-wrap:wrap; }
-            .ticket { border:1px solid lime; padding:6px 8px; border-radius:4px; background:#001; color:lime; font-family:'Lucida Console', monospace; }
+            .ticket { border:1px solid lime; padding:8px; border-radius:6px; background:#001; color:lime; font-family:'Lucida Console', monospace; display:flex; flex-direction:column; align-items:center; gap:6px; min-width:64px; }
+            .ticket-img { font-size:28px; }
+            .ticket-label { font-size:13px; color:linen; }
+            .ticket-count { font-size:16px; font-weight:bold; color:lime; }
             .big-btn { width:100%; padding:10px; font-size:16px; background:black; border:2px solid lime; color:lime; cursor:pointer; }
             input[type="number"], input[type="text"] { width:100%; padding:8px; background:#111; color:lime; border:1px solid #333; }
+            textarea { width:100%; min-height:120px; padding:8px; background:rgba(0,0,0,0.6); color:lime; border:1px solid #333; box-sizing:border-box; font-family:'Lucida Console', monospace; resize:vertical; }
+            .notes-footer { font-size:12px; color:#9bff9b; margin-top:6px; }
             .small-btn { padding:8px 10px; background:transparent; border:1px solid lime; color:lime; cursor:pointer; font-size:14px; }
             .status { font-size:12px; color:#ccc; margin-top:8px; }
         </style>
@@ -45,11 +50,31 @@
             <div style="margin-bottom:10px;">
                 <div><strong>Tickets</strong></div>
                 <div class="tickets" id="ticketList">
-                    <div class="ticket">Taxi: <span id="taxi">0</span></div>
-                    <div class="ticket">Bus: <span id="bus">0</span></div>
-                    <div class="ticket">Underground: <span id="tube">0</span></div>
-                    <div class="ticket">Double: <span id="double">0</span></div>
-                    <div class="ticket">Black: <span id="black">0</span></div>
+                    <div class="ticket" data-type="taxi">
+                        <div class="ticket-img">🚕</div>
+                        <div class="ticket-label">Taxi</div>
+                        <div class="ticket-count" id="taxi">0</div>
+                    </div>
+                    <div class="ticket" data-type="bus">
+                        <div class="ticket-img">🚌</div>
+                        <div class="ticket-label">Bus</div>
+                        <div class="ticket-count" id="bus">0</div>
+                    </div>
+                    <div class="ticket" data-type="tube">
+                        <div class="ticket-img">🚇</div>
+                        <div class="ticket-label">Underground</div>
+                        <div class="ticket-count" id="tube">0</div>
+                    </div>
+                    <div class="ticket" data-type="double">
+                        <div class="ticket-img">2️⃣</div>
+                        <div class="ticket-label">Double</div>
+                        <div class="ticket-count" id="double">0</div>
+                    </div>
+                    <div class="ticket" data-type="black">
+                        <div class="ticket-img">🎩</div>
+                        <div class="ticket-label">Black</div>
+                        <div class="ticket-count" id="black">0</div>
+                    </div>
                 </div>
             </div>
 
@@ -75,6 +100,15 @@
                 </div>
                 <button id="connectBtn" class="big-btn" type="button">Join Game</button>
                 <div class="status" id="status">Disconnected</div>
+            </div>
+
+            <div style="margin-top:12px;">
+                <div><strong>Notes</strong></div>
+                <textarea id="playerNotes" placeholder="Take notes here... (saved locally)"></textarea>
+                <div style="display:flex; gap:8px; margin-top:8px; align-items:center;">
+                    <button id="clearNotesBtn" class="small-btn" type="button">Clear Notes</button>
+                    <div class="notes-footer" id="notesStatus">Notes saved locally</div>
+                </div>
             </div>
         </div>
 
