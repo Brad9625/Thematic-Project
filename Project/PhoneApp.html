@@ -3,40 +3,103 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>
-        </title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="index.css">
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Scotland Yard — Phone</title>
+        <link rel="stylesheet" href="index.css" />
+        <style>
+            /* Mobile-friendly overrides */
+            body {
+                color: lime;
+                background-size: cover;
+                padding: 12px;
+            }
+            .phone-wrap {
+                max-width: 480px;
+                margin: 0 auto;
+                background: rgba(0,0,0,0.8);
+                border: 2px solid lime;
+                padding: 12px;
+                border-radius: 8px;
+                box-sizing: border-box;
+            }
+            .row { display:flex; gap:8px; align-items:center; margin-bottom:10px; }
+            .col { flex:1; }
+            h1 { font-size:20px; margin:0 0 8px 0; color:linen; }
+            .tickets { display:flex; gap:6px; flex-wrap:wrap; }
+            .ticket { border:1px solid lime; padding:6px 8px; border-radius:4px; background:#001; color:lime; font-family:'Lucida Console', monospace; }
+            .big-btn { width:100%; padding:10px; font-size:16px; background:black; border:2px solid lime; color:lime; cursor:pointer; }
+            input[type="number"], input[type="text"] { width:100%; padding:8px; background:#111; color:lime; border:1px solid #333; }
+            .small-btn { padding:8px 10px; background:transparent; border:1px solid lime; color:lime; cursor:pointer; font-size:14px; }
+            .status { font-size:12px; color:#ccc; margin-top:8px; }
+        </style>
     </head>
     <body>
 
-        <div id="head">
-            <p id="header-text">Welcome to Scotland Yard</p>
+        <div class="phone-wrap" role="application">
+            <h1 id="playerHeader">Player — <span id="playerName">Anonymous</span></h1>
+            <div class="row">
+                <div class="col"><strong>Role:</strong> <span id="role">Detective</span></div>
+                <div class="col" style="text-align:right"><strong>Loc:</strong> <span id="locationDisplay">—</span></div>
+            </div>
+
+            <div style="margin-bottom:10px;">
+                <div><strong>Tickets</strong></div>
+                <div class="tickets" id="ticketList">
+                    <div class="ticket">Taxi: <span id="taxi">0</span></div>
+                    <div class="ticket">Bus: <span id="bus">0</span></div>
+                    <div class="ticket">Underground: <span id="tube">0</span></div>
+                    <div class="ticket">Double: <span id="double">0</span></div>
+                    <div class="ticket">Black: <span id="black">0</span></div>
+                </div>
+            </div>
+
+            <form id="moveForm" onsubmit="return false;">
+                <div style="margin-bottom:8px;"><strong>Make a move</strong></div>
+                <div class="row">
+                    <select id="moveType" class="col">
+                        <option value="taxi">Taxi</option>
+                        <option value="bus">Bus</option>
+                        <option value="underground">Underground</option>
+                        <option value="double">Double Move</option>
+                        <option value="black">Black Ticket</option>
+                    </select>
+                    <input id="destination" type="number" placeholder="Destination node" min="1" required />
+                </div>
+                <button id="confirmMove" class="big-btn" type="button">Confirm Move</button>
+            </form>
+
+            <div style="margin-top:10px;">
+                <div class="row" style="margin-bottom:8px;">
+                    <input id="gameCode" type="text" placeholder="Game code (e.g. ABC123)" />
+                    <button id="copyLinkBtn" class="small-btn" type="button">Copy Link</button>
+                </div>
+                <button id="connectBtn" class="big-btn" type="button">Join Game</button>
+                <div class="status" id="status">Disconnected</div>
+            </div>
         </div>
 
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
-        <script src="" async defer></script>
+    <script src="PhoneApp.js"></script>
     </body>
 </html>
