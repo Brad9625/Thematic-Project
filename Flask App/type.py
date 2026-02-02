@@ -6,3 +6,4 @@ class Type(Enum): #used to determine the type of node (location/route)
     Bus = 2
     Underground = 3
     Ferry = 4
+    TimesTwo = 5
