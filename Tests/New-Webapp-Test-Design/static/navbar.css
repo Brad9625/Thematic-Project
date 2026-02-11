@@ -1,0 +1,25 @@
+nav{
+    background: #222;
+    padding: 20px;
+    margin: 0;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
+nav a{
+    color: var(--font-colour);
+    margin-right: 10%;
+    background-color: var(--button-background-colour);
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: var(--button-text-size);
+}
+
+nav a:hover{
+    color: #ff1212;
+}

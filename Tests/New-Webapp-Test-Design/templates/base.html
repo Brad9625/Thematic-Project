@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}My Site{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='footer.css') }}">
+
+</head>
+
+<body>
+
+{% include "navbar.html" %}
+
+<main style="padding:20px;">
+    {% block content %}{% endblock %}
+</main>
+
+{% include "footer.html" %}
+
+</body>
+</html>

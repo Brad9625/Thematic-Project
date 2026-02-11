@@ -1,3 +1,15 @@
+:root{
+    --font-color: lime;
+    --border-color: lime;
+    --button-background-colors: black;
+}
+
+.dark{
+    --font-color: black;
+    --border-color: rgb(3, 3, 3);
+    --button-background-colors: rgb(59, 59, 59);
+}
+
 html, body{
     height: 100%;
 }
@@ -108,7 +120,7 @@ body {
     width: 100%;
     padding: 25px;
     text-align: center;
-    color: lime;
+    color: var(--font-color);
     font-family: 'Lucida Console', Courier, monospace;
     font-size: 20px;
     display: flex;
@@ -119,9 +131,9 @@ body {
 
 /* BUTTONS */
 .button {
-    background-color: black;
-    border: 2px solid lime;
-    color: lime;
+    background-color: var(--button-background-colors);
+    border: 2px solid var(--border-color);
+    color: var(--font-color);
     padding: 10px 2px;
     font-size: 16px;
     font-family: 'Lucida Console', Courier, monospace;
@@ -144,13 +156,14 @@ body {
     display: flex;
 }
 
+
 .modal-content {
     width: min(700px, 95vw);
     max-height: 85vh;
     overflow: auto;
     background: black;
-    border: 2px solid lime;
-    color: lime;
+    border: 2px solid var(--border-color);
+    color: var(--font-color);
     padding: 20px;
     border-radius: 8px;
     position: relative;
@@ -173,8 +186,8 @@ body {
     top: 10px;
     right: 10px;
     background: transparent;
-    border: 2px solid lime;
-    color: lime;
+    border: 2px solid var(--border-color);
+    color: var(--font-color);
     font-size: 20px;
     width: 36px;
     height: 36px;
@@ -218,3 +231,41 @@ body {
         max-width: 520px;
     }
 }
+
+
+@media (max-width: 600px) {
+    #header-text {
+        font-size: 1em;
+    }
+
+    .button {
+        font-size: 14px;
+        padding: 8px 2px;
+    }
+
+    #info-container {
+        font-size: 16px;
+    }
+
+    #scoreboard-container {
+        padding: 10px;
+        width: 100%;
+    }
+
+    #footer {
+        font-size: 0.8em;
+        padding: 10px;
+    }
+}
+
+
+@media (max-width: 1300px) {
+    #main-containers {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #game-container,
+    #right-column {
+        width: 100%;
+        max-width: 900px;

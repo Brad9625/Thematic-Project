@@ -1,0 +1,22 @@
+:root{
+    --background-colour: #ffffff;
+    --font-colour: #080808;
+    --button-background-colour: #5f5e5e;
+    --title-text-size: 1em;
+    --button-text-size: 1em;
+}
+
+:dark-mode{
+    --background-colour: #131313;
+    --font-colour: #ffffff;
+}
+
+
+body, html{
+    background: var(--background-colour);
+    color: var(--font-colour)
+}
+
+.spacer{
+    margin-top: 50px;
+}

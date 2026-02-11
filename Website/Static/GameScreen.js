@@ -236,4 +236,12 @@
         }
         window.open(relLink, '_blank');
       });
+
+      const darkModeToggle = document.getElementById('darkModeBtn');
+
+      if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', () => {
+          document.documentElement.classList.toggle('dark');
+        });
+      }
     }
