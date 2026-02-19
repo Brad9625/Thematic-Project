@@ -6,24 +6,12 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static',filename='index.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static',filename='GameBoard.css') }}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-    <script>
-      
-      const socket = io();
-
-      socket.on("detMove", function(data) {
-            var loc = document.getElementById(data['detective']);
-            var pos = document.getElementById(data['locationTo']);
-            loc.style.left = pos.style.left;
-            loc.style.top = pos.style.top;
-        });
-    </script>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="GameBoard.CSS">
 </head>
 
 <body>
-<div id="head">
+  <div id="head">
     <p id="header-text">Welcome to Scotland Yard</p>
   </div>
 
@@ -150,6 +138,9 @@
   <footer id="footer">
     <p>©2024 Scotland Yard. All rights reserved.</p>
   </footer>
+
+  
+
    <script src="index.js"></script>
 </body>
 
