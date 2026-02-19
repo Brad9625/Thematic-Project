@@ -1,8 +1,33 @@
-<nav>
-    <a style="background-color: #ffffff00;"> Scotland Yard </a>
-    <a href="/">Home</a>
+<body>
 
-    <a href="/play">Play</a>
+    <button class="menu-toggle" id="menuToggle">☰</button>
 
-    <a href="/rules">Rules</a>
-</nav>
+    <nav>
+        <a> Scotland Yard </a>
+        <button id="darkModeBtn" class="menu-toggle" style="position:absolute; right:20px; top:18px;">Dark Mode</button>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+        <a href="/">Home</a>
+        <a href="/play">Start New Game</a>
+        <a href="/rules">Game Rules</a>
+    </div>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        menuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+        });
+        
+        // Close sidebar when a link is clicked
+        const sidebarLinks = sidebar.querySelectorAll('a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+            });
+        });
+    </script>
+
+</body>

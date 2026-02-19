@@ -18,5 +18,34 @@
 
 {% include "footer.html" %}
 
+<script>
+/* Theme init + toggle: default to root (light). Toggle stores preference in localStorage. */
+(function(){
+    const root = document.documentElement;
+    const stored = localStorage.getItem('theme'); // 'dark' or 'light'
+    if(stored === 'dark') root.classList.add('dark'); else root.classList.remove('dark');
+
+    function updateButtonLabel(btnEl){
+        if(!btnEl) return;
+        const isDark = root.classList.contains('dark');
+        btnEl.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+        btnEl.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    }
+
+    function toggleDark(){
+        const isDark = root.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        updateButtonLabel(document.getElementById('darkModeBtn'));
+    }
+
+    const btn = document.getElementById('darkModeBtn');
+    if(btn) {
+        btn.addEventListener('click', toggleDark);
+        updateButtonLabel(btn);
+    }
+    window.toggleDarkMode = toggleDark;
+})();
+</script>
+
 </body>
 </html>

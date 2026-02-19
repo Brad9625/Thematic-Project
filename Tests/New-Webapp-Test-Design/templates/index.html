@@ -3,10 +3,32 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<p class="spacer"></p>
-<h1>Welcome</h1>
-<p>This is the home page</p>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='footer.css') }}">
+
+</head>
+
+<body>
+    <div id="main-containers">
+        <h1>Welcome to the Scotland Yard Game!</h1>
+        <p>This is a web application for playing the Scotland Yard board game online. You can create a new game, join an existing game, and view the rules of the game.</p>
+
+    </div>
 
 
+
+
+
+
+
+
+
+
+
+
+</body>
 
 {% endblock %}

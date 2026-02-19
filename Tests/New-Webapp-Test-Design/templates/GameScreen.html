@@ -1,0 +1,344 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='footer.css') }}">
+
+</head>
+
+<body>
+  <div id="main-containers">
+    <div id="game-container">
+
+        <div id="board-frame">
+            <div id="board-container">
+
+                <!-- Map -->
+                <img id="game-map" src="temp.png" alt="Game Map">
+
+                <!-- Optional marker -->
+                <div class="marker test1" style="top: 13%; left: 34%;"></div>
+
+            </div>
+      </div>
+    </div>
+
+    <div id="right-column">
+      <div id="scoreboard-container">
+        <div id="scoreboard">
+          <table id="scoreboard-table">
+            <thead>
+              <tr>
+                <th>Move</th>
+                <th>Player 1</th>
+                <th>Player 2</th>
+                <th>Player 3</th>
+                <th>Mr. X</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Move 1</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>Move 2</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>Move 3</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>Move 4</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>Move 5</td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="info-container">
+        <h2>Game Information</h2>
+        <button class="button" id="newGameBtn" type="button">New Game</button>
+        <button class="button" id="joinFromTVBtn" type="button">Join on Phone</button>
+        <a class="button" href="/rules" style="text-decoration: none; display: inline-block;">Rules</a>
+        <button class="button" id="gameInfoBtn" type="button" disabled>Game Info</button>
+        <button class="button" id="darkModeBtn" type="button">Toggle Display Mode</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div id="gameCodeModal" class="modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="gameCodeTitle">
+      <button class="modal-close" id="gameCodeCloseBtn" type="button" aria-label="Close game code">&times;</button>
+      <h2 id="gameCodeTitle">New Game Created</h2>
+
+      <div class="rules-text">
+        <p><strong>Share this code to allow others to join the game:</strong></p>
+        <div id="gameCodeText" style="font-size:32px; color:linen; margin:10px 0; letter-spacing:4px;">ABC123</div>
+        <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px;">
+          <button id="copyGameLinkBtn" class="button" type="button">Copy Join Link</button>
+          <button id="copyGameCodeBtn" class="button" type="button">Copy Code</button>
+        </div>
+
+        <div style="margin-top:10px;">
+          <img id="gameQr" alt="QR code" src="" style="width:150px; height:150px; border:2px solid lime; background:white;" />
+        </div>
+
+        <hr style="margin:12px 0; border-color: #444;" />
+
+        <div style="margin-top:8px;">
+          <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px;">
+            <button id="assignPlayersBtn" class="button" type="button">Assign Players</button>
+            <button id="randomizeRolesBtn" class="button" type="button">Randomize Roles</button>
+          </div>
+          <div><strong>Players</strong></div>
+          <div id="playerList" style="margin-top:8px; color:linen; font-family:'Lucida Console', monospace;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Info Modal (shows same roles in a separate UI) -->
+  <div id="gameInfoModal" class="modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="gameInfoTitle">
+      <button class="modal-close" id="gameInfoCloseBtn" type="button" aria-label="Close game info">&times;</button>
+      <h2 id="gameInfoTitle">Game Information</h2>
+      <div class="rules-text">
+        <p><strong>Game Code:</strong> <span id="gameInfoCode" style="color:linen; font-weight:700;"></span></p>
+        <div id="gameInfoPlayers" style="margin-top:8px; color:linen; font-family:'Lucida Console', monospace;"></div>
+      </div>
+    </div>
+  </div>
+
+  
+
+   <script>
+
+    // --- New Game / Game Code modal logic ---
+    const newGameBtn = document.getElementById('newGameBtn');
+    const gameModal = document.getElementById('gameCodeModal');
+    const gameCloseBtn = document.getElementById('gameCodeCloseBtn');
+    const gameCodeText = document.getElementById('gameCodeText');
+    const copyGameLinkBtn = document.getElementById('copyGameLinkBtn');
+    const copyGameCodeBtn = document.getElementById('copyGameCodeBtn');
+    const gameQr = document.getElementById('gameQr');
+
+    function openGameModal() {
+      gameModal.classList.add('open');
+      gameModal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeGameModal() {
+      gameModal.classList.remove('open');
+      gameModal.setAttribute('aria-hidden', 'true');
+    }
+
+    function generateGameCode(length = 6) {
+      const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+      let result = '';
+      for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return result;
+    }
+
+    newGameBtn.addEventListener('click', () => {
+      const code = generateGameCode();
+      gameCodeText.textContent = code;
+      const base = window.location.origin + window.location.pathname;
+      const link = base + '?game=' + encodeURIComponent(code);
+      // generate QR code via public API
+      gameQr.src = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodeURIComponent(link);
+      localStorage.setItem('currentGameCode', code);
+      openGameModal();
+      // show roles panel (empty initially)
+      displayRoles(code);
+    });
+
+    gameCloseBtn.addEventListener('click', closeGameModal);
+    gameModal.addEventListener('click', (e) => { if (e.target === gameModal) closeGameModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && gameModal.classList.contains('open')) closeGameModal(); });
+
+    copyGameLinkBtn.addEventListener('click', async () => {
+      const code = gameCodeText.textContent;
+      const base = window.location.origin + window.location.pathname;
+      const link = base + '?game=' + encodeURIComponent(code);
+      try {
+        await navigator.clipboard.writeText(link);
+        alert('Invite link copied to clipboard');
+      } catch (e) {
+        window.prompt('Copy link', link);
+      }
+    });
+
+    copyGameCodeBtn.addEventListener('click', async () => {
+      const code = gameCodeText.textContent;
+      try {
+        await navigator.clipboard.writeText(code);
+        alert('Game code copied to clipboard');
+      } catch (e) {
+        window.prompt('Copy code', code);
+      }
+    });
+
+    // Roles assignment helpers
+    const assignPlayersBtn = document.getElementById('assignPlayersBtn');
+    const randomizeRolesBtn = document.getElementById('randomizeRolesBtn');
+    const playerListEl = document.getElementById('playerList');
+
+    // Game Info elements
+    const gameInfoBtn = document.getElementById('gameInfoBtn');
+    const gameInfoModal = document.getElementById('gameInfoModal');
+    const gameInfoCloseBtn = document.getElementById('gameInfoCloseBtn');
+    const gameInfoCode = document.getElementById('gameInfoCode');
+    const gameInfoPlayers = document.getElementById('gameInfoPlayers');
+
+    function getRolesKey(code) {
+      return 'game::' + code + '::roles';
+    }
+
+    function escapeHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    function displayRoles(code, targetEl) {
+      // prefer explicit code, then currentGameCode, then URL param, then modal text
+      code = code || localStorage.getItem('currentGameCode') || (new URLSearchParams(window.location.search)).get('game') || gameCodeText.textContent;
+      const outEl = targetEl || playerListEl;
+      if (!code) { outEl.innerHTML = '<em>No game code set.</em>'; return; }
+      const raw = localStorage.getItem(getRolesKey(code));
+      if (!raw) { outEl.innerHTML = '<em>No players assigned yet.</em>'; return; }
+      try {
+        const map = JSON.parse(raw);
+        const rows = Object.entries(map).map(([name, role]) => `
+          <tr>
+            <td style="padding:6px;border-bottom:1px solid rgba(255,255,255,0.08)">${escapeHtml(name)}</td>
+            <td style="padding:6px;border-bottom:1px solid rgba(255,255,255,0.08)"><strong>${escapeHtml(role)}</strong></td>
+          </tr>
+        `).join('');
+        outEl.innerHTML = `
+          <table class="players-table" style="width:100%;border-collapse:collapse;color:linen;font-family:'Lucida Console', monospace;">
+            <thead><tr><th style="text-align:left;padding:6px;border-bottom:1px solid rgba(255,255,255,0.12)">Name</th><th style="text-align:left;padding:6px;border-bottom:1px solid rgba(255,255,255,0.12)">Role</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        `;
+      } catch (e) {
+        outEl.textContent = 'Error loading players';
+      }
+    }
+
+    assignPlayersBtn.addEventListener('click', () => {
+      let code = localStorage.getItem('currentGameCode') || gameCodeText.textContent;
+      if (!code) { alert('Create a game first.'); return; }
+      const input = prompt('Enter player names, comma separated (e.g. Alice,Bob,Charlie):');
+      if (!input) return;
+      const names = input.split(',').map(s => s.trim()).filter(Boolean);
+      if (!names.length) return alert('No valid names provided');
+      const roles = {};
+      names.forEach(n => { roles[n] = 'Detective'; });
+      localStorage.setItem(getRolesKey(code), JSON.stringify(roles));
+      displayRoles(code);
+      if (gameInfoPlayers) displayRoles(code, gameInfoPlayers);
+      alert('Players assigned. Use Randomize Roles to pick Mr. X');
+    });
+
+    randomizeRolesBtn.addEventListener('click', () => {
+      let code = localStorage.getItem('currentGameCode') || gameCodeText.textContent;
+      if (!code) { alert('Create a game first.'); return; }
+      let raw = localStorage.getItem(getRolesKey(code));
+      let names = [];
+      if (raw) {
+        try { names = Object.keys(JSON.parse(raw)); } catch (e) { names = []; }
+      }
+      if (!names.length) {
+        const input = prompt('No player list found. Enter player names, comma separated:');
+        if (!input) return; names = input.split(',').map(s => s.trim()).filter(Boolean);
+        if (!names.length) return alert('No valid names provided');
+      }
+      const picked = names[Math.floor(Math.random()*names.length)];
+      const roles = {};
+      names.forEach(n => { roles[n] = (n === picked ? 'Mr X' : 'Detective'); });
+      localStorage.setItem(getRolesKey(code), JSON.stringify(roles));
+      displayRoles(code);
+      if (gameInfoPlayers) displayRoles(code, gameInfoPlayers);
+      alert('Mr. X selected: ' + picked);
+    });
+
+    // ensure the modal shows roles if already present
+    // (handled in main newGame handler)
+
+    // when opening modal manually, show roles
+    gameCodeModal.addEventListener('click', () => { const code = gameCodeText.textContent; if (code) displayRoles(code); });
+
+    // Game Info button handlers
+    if (gameInfoBtn) {
+      gameInfoBtn.addEventListener('click', () => {
+        const code = localStorage.getItem('currentGameCode') || gameCodeText.textContent;
+        if (!code) { alert('Create a game first.'); return; }
+        gameInfoCode.textContent = code;
+        gameInfoModal.classList.add('open');
+        gameInfoModal.setAttribute('aria-hidden', 'false');
+        displayRoles(code, gameInfoPlayers);
+      });
+      gameInfoCloseBtn.addEventListener('click', () => { gameInfoModal.classList.remove('open'); gameInfoModal.setAttribute('aria-hidden', 'true'); });
+      gameInfoModal.addEventListener('click', (e) => { if (e.target === gameInfoModal) { gameInfoModal.classList.remove('open'); gameInfoModal.setAttribute('aria-hidden', 'true'); } });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && gameInfoModal.classList.contains('open')) { gameInfoModal.classList.remove('open'); gameInfoModal.setAttribute('aria-hidden', 'true'); } });
+    }
+
+    // update roles display when localStorage roles change (e.g., players joining from other tabs)
+    window.addEventListener('storage', (e) => {
+      if (!e.key) return;
+      const m = (e.key || '').match(/^game::(.+)::roles$/);
+      if (m) {
+        const changedCode = m[1];
+        const current = localStorage.getItem('currentGameCode') || (new URLSearchParams(window.location.search)).get('game') || gameCodeText.textContent;
+        if (changedCode === current) {
+          displayRoles(changedCode);
+          if (gameInfoPlayers) displayRoles(changedCode, gameInfoPlayers);
+        }
+      }
+    });
+
+    // on load, show current game roles if available
+    const initialCode = localStorage.getItem('currentGameCode') || (new URLSearchParams(window.location.search)).get('game');
+    if (initialCode) {
+      displayRoles(initialCode);
+      if (gameInfoBtn) gameInfoBtn.disabled = false;
+    }
+
+    // Join on TV button: open PhoneApp.html with player and game code
+    const joinFromTVBtn = document.getElementById('joinFromTVBtn');
+    if (joinFromTVBtn) {
+      joinFromTVBtn.addEventListener('click', async () => {
+        let code = localStorage.getItem('currentGameCode') || params.get('game') || '';
+        if (!code) {
+          // create a new game code if none exists
+          newGameBtn.click();
+          code = localStorage.getItem('currentGameCode') || '';
+          if (!code) { alert('Could not create a game code'); return; }
+        }
+        const player = prompt('Enter player name for phone (optional):') || 'Player';
+        const relLink = 'PhoneApp.html?player=' + encodeURIComponent(player) + '&game=' + encodeURIComponent(code);
+        // copy link & open
+        const fullLink = window.location.origin + window.location.pathname.replace(/[^/]*$/,'') + relLink;
+        try {
+          await navigator.clipboard.writeText(fullLink);
+          alert('Join link copied to clipboard. Opening Phone App in a new tab.');
+        } catch (e) {
+          // ignore clipboard errors
+        }
+        window.open(relLink, '_blank');
+      });
+
+      const darkModeToggle = document.getElementById('darkModeBtn');
+
+      if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', () => {
+          document.documentElement.classList.toggle('dark');
+        });
+      }
+    }
+
+   </script>
+</body>
+
+
+
+{% endblock %}

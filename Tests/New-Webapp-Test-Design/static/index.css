@@ -1,0 +1,29 @@
+#main-containers{
+    margin-top: 10%;
+    padding: 40px;
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    background: var(--button-background-colour);
+    border-radius: 25px;
+}
+
+#main-containers h1 {
+    margin: 0;
+    padding: 20px;
+    font-size: 50px;
+    border-bottom: 3px solid var(--button-background-colour);
+    padding-bottom: 20px;
+    
+}
+
+#main-containers p {
+    line-height: 1.8;
+    text-align: center;
+    font-size: 30px;
+    margin: 0;
+    padding: 20px;
+}

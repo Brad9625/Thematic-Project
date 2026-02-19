@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Rules{% endblock %}
+
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='footer.css') }}">
+    <style>
+        #rules-container {
+            max-width: 900px;
+            margin: 80px auto 40px;
+            padding: 40px;
+            background-color: var(--container-background-colour);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rules-text {
+            color: var(--font-colour);
+            font-size: 1.1em;
+            line-height: 1.8;
+            flex: 1;
+        }
+
+        #rules-container h1 {
+            text-align: center;
+            color: var(--button-background-colour);
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            margin-top: 0;
+        }
+
+        .rules-text p {
+            margin-bottom: 15px;
+        }
+
+        .rules-text ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .rules-text li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+
+        .rules-text strong {
+            color: var(--button-background-colour);
+        }
+
+        .rules-text h3 {
+            text-align: center;
+            color: var(--font-colour);
+            margin-top: 40px;
+            font-style: italic;
+            font-size: 1.3em;
+        }
+
+        .rules-text br {
+            display: block;
+            content: "";
+            margin: 5px 0;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--button-background-colour);
+            color: var(--font-colour);
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            align-self: flex-end;
+            margin-top: 10px;
+        }
+
+        .back-button:hover {
+            background-color: var(--font-colour);
+            color: var(--background-colour);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="rules-container">
+        <h1>Scotland Yard Official Rules</h1>
+
+        <div class="rules-text">
+            <p> Here is a brief summary of the rules. </p>
+            <ol>
+                <li><strong>Objectives: <br>- Detectives win by locating and capturing Mr X. <br>- Mr X wins by evading capture until the end of the game or if detectives cannot make a legal move. </strong></li>
+                <li><strong> Players and Roles: <br>- 2-6 Players. <br>- 1 player is secretely chosen to be Mr. X. <br>- Remaining players act as Detectives </strong> </li>
+                <li><strong> Game Components: <br>- Game board (map of London). <br>- Player tokensTransport tickets: Taxi, Bus, Underground<br>- Secret tickets and Double Move tickets (Mr X only)<br>- Mr X movement log (hidden record of moves)</strong></li>
+                <li><strong> Setup: <br>- All players place their tokens on random starting locations.<br>- Mr X's location is kept secret from detectives.<br>- Each player receives a set number of transport tickets.<br>- Mr X receives additional Secret and Double Move tickets. </strong></li>
+                <li><strong> Turn Order: <br>- Mr X moves first, followed by detectives.<br>- Players take turns in clockwise order.</strong></li>
+                <li><strong> Movement Rules: <br>- Players move along connected routes on the board.<br>- Each move consumes one transport ticket:<br>-- Taxi (short routes)<br>-- Bus (medium routes)<br>-- Underground (long routes)<br>- Detectives may not move onto the same space as another detective. </strong></li>
+                <li><strong> Mr X's Special Rules: <br>- Mr X records every move secretly on a log sheet.<br>- On specific rounds, Mr X must reveal their location.<br>- Mr X may:<br>-- Use Secret Tickets to hide transport typeUse<br>-- Double Move Tickets to move twice in one turn</strong></li>      
+                <li><strong> Capture Rules: <br>- Mr X is captured immediately if a detective lands on his location.<br>- The game ends instantly upon capture.</strong></li>
+                <li><strong> Winning The Game: <br>- Detectives win if Mr X is captured.<br>- Mr X wins if:<br>-- He survives all rounds, or<br>-- All detectives are unable to move legally. </strong></li>
+                <li><strong> Key Restrictions: <br>- Detectives cannot use Secret or Double Move tickets.<br>- Detectives must surrender used tickets to Mr X.<br>- Mr X cannot move onto a space occupied by a detective.</strong></li>
+            </ol>
+            <h3> !!Good Look and may the best Player win!!</h3>
+        </div>
+        <button class="back-button" onclick="history.back()">← Back</button>
+    </div>
+
+</body>
+
+{% endblock %}
