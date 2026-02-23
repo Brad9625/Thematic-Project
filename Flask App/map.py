@@ -28,6 +28,13 @@ class Location(Node):
         self._type = Type.Location #automatically set type to be location
         self._neighbours = [] #blank neighbour set
 
+    def setLocation(self, positionX: int, positionY: int, width: int, height: int):
+        widthpoint = width/100
+        heightpoint = height/100
+        # to allow scalability to different map sizes
+        self._posX = positionX/widthpoint
+        self._posY = positionY/heightpoint 
+
 class Map:
     def __init__(self):
         return
@@ -35,7 +42,7 @@ class Map:
     def _BuildMap(self, locationList: list, routeList: list):
         self.locationNodeList = [] #create blank list to contain location NODES
         for loc in locationList:
-            self.locationNodeList.append(Location(loc)) #make list of locations from ID numbers
+            self.locationNodeList.append(loc) #make list of locations 
         for route in routeList: #now iterate through routelist (format is (loc,dest,type),(loc,dest,type))
             for location in self.locationNodeList:
                 if location._id == route[0]: #get the start of route

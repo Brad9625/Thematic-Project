@@ -14,7 +14,7 @@
       const socket = io();
 
       socket.on("detMove", function(data) {
-            var loc = document.getElementById(data['detective']);
+            var loc = document.getElementById(data['colour']);
             var pos = document.getElementById(data['locationTo']);
             loc.style.left = pos.style.left;
             loc.style.top = pos.style.top;
@@ -34,20 +34,25 @@
             <div id="board-container">
 
                 <!-- Map -->
-                <img id="game-map" src="temp.png" alt="Game Map">
+                <img id="game-map" src="http://trinity-developments.co.uk/images/mini_map.png" alt="Game Map">
 
                 <!-- Optional marker -->
-                <div id="red" class="marker" style="position: absolute;"></div>
-                <div id="blue" class="marker" style="position: absolute;"></div>
-                <div id="green" class="marker" style="position: absolute;"></div>
-                <div id="purple" class="marker" style="position: absolute;"></div>
-                <div id="yellow" class="marker" style="position: absolute;"></div>
-                <div id="black" class="marker" style="position: absolute; display: none;"></div>
+                <div id="Red" class="marker" style="position: absolute; left: 71.34%; top: 83.73%; background: red;"></div>
+                <div id="Blue" class="marker" style="position: absolute; display: none;"></div>
+                <div id="Green" class="marker" style="position: absolute; left: 15.61%; top: 59.349%; background: green;"></div>
+                <div id="Purple" class="marker" style="position: absolute; display: none;"></div>
+                <div id="Yellow" class="marker" style="position: absolute; display: none;"></div>
+                <div id="Black" class="marker" style="position: absolute; display: none;"></div>
+                <div id="Clear" class="marker" style="position: absolute; display: none; left: 11.067%; top: 22.22%;"></div>
 
                 <!-- Locations -->
-                <div id="0" style="display: none; position: absolute; top: 0%; left: 0%; width:1px; height:1px;"></div>
-                <div id="1" style="display: none; position: absolute; top: 10%; left: 10%; width:1px; height:1px;"></div>
-                <div id="2" style="display: none; position: absolute; top: 20%; left: 20%; width:1px; height:1px;"></div>
+                <div id="1" style="display: none; position: absolute; left: 11.067%; top: 22.22%; width:1px; height:1px;"></div>
+                <div id="2" style="display: none; position: absolute; left: 44.07%; top: 14.905%; width:1px; height:1px;"></div>
+                <div id="3" style="display: none; position: absolute; left: 69.56%; top: 21.68%; width:1px; height:1px;"></div>
+                <div id="4" style="display: none; position: absolute; left: 85.96%; top: 55.82%; width:1px; height:1px;"></div>
+                <div id="5" style="display: none; position: absolute; left: 71.34%; top: 83.73%; width:1px; height:1px;"></div>
+                <div id="6" style="display: none; position: absolute; left: 39.32%; top: 39.32%; width:1px; height:1px;"></div>
+                <div id="7" style="display: none; position: absolute; left: 15.61%; top: 59.349%; width:1px; height:1px;"></div>
             </div>
       </div>
     </div>

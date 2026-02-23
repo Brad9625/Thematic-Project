@@ -6,6 +6,22 @@
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <title>Scotland Yard — Phone</title>
         <link rel="stylesheet" href="{{ url_for('static',filename='index.css') }}" />
+        <script>
+            color = "Red";
+            function move(detective)
+            {
+                locationTo = document.getElementById("destination").value;
+                method = document.getElementById("moveType").value;
+                socket.emit(
+                    'move', 
+                    {
+                        colour,
+                        locationTo,
+                        method
+                    }
+                );
+            }
+        </script>
         <style>
             /* Mobile-friendly overrides */
             body {
@@ -90,7 +106,7 @@
                     </select>
                     <input id="destination" type="number" placeholder="Destination node" min="1" required />
                 </div>
-                <button id="confirmMove" class="big-btn" type="button">Confirm Move</button>
+                <button id="confirmMove" class="big-btn" type="button" onclick="move('red')"></button>>Confirm Move</button>
             </form>
 
             <div style="margin-top:10px;">
