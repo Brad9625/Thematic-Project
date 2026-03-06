@@ -15,7 +15,9 @@ def rules():
 def play():
     return render_template("GameScreen.html")
 
-
+@app.route("/join")
+def join():
+    return render_template("JoinPhone.html")
 
 
 
