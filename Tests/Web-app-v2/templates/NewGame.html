@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}New Game{% endblock %}
+
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='footer.css') }}">
+    <style>
+        .game-options {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 60px;
+            margin-bottom: 60px;
+        }
+
+        .option-card {
+            background-color: var(--container-background-colour);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            min-width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .option-card h2 {
+            color: var(--button-background-colour);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .option-card p {
+            color: var(--font-colour);
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .option-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: var(--button-background-colour);
+            color: var(--font-colour);
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .option-button:hover {
+            background-color: var(--font-colour);
+            color: var(--background-colour);
+        }
+
+        .page-title {
+            text-align: center;
+            color: var(--button-background-colour);
+            margin-bottom: 40px;
+            font-size: 2.5em;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="padding: 40px; max-width: 1000px; margin: 0 auto;">
+        <h1 class="page-title">Start Playing Scotland Yard</h1>
+
+        <div class="game-options">
+            <div class="option-card">
+                <h2>Host Game</h2>
+                <p>Create a new game and invite your friends to play. You'll be the game master.</p>
+                <a href="/play" class="option-button">Host a Game</a>
+            </div>
+
+            <div class="option-card">
+                <h2>Join Game</h2>
+                <p>Join an existing game using a game code or invitation link from a friend.</p>
+                <button class="option-button" onclick="joinGame()">Join a Game</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function joinGame() {
+            const gameCode = prompt('Enter the game code:');
+            if (gameCode) {
+                window.location.href = '/play?game=' + encodeURIComponent(gameCode);
+            }
+        }
+    </script>
+
+</body>
+
+{% endblock %}

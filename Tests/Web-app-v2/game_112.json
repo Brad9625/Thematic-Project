@@ -1,0 +1,33 @@
+{
+    "game_id": 112,
+    "status": "waiting",
+    "turn_number": 2,
+    "players": [
+        {
+            "player_id": 1,
+            "name": "Meow",
+            "role": "mr_x",
+            "position": "45",
+            "tickets": {
+                "taxi": 3,
+                "bus": 0,
+                "underground": 0
+            }
+        },
+        {
+            "player_id": 2,
+            "name": "Kitty",
+            "role": "detective",
+            "position": "13",
+            "tickets": {
+                "taxi": 9,
+                "bus": 0,
+                "underground": 0
+            }
+        }
+    ],
+    "history": {
+        "1": "mr x -> 45 (taxi)",
+        "2": "Kitty -> 13 (taxi)"
+    }
+}

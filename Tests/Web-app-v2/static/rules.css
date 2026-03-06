@@ -1,0 +1,79 @@
+#rules-container {
+    max-width: 900px;
+    margin: 80px auto 40px;
+    padding: 40px;
+    background-color: var(--container-background-colour);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+}
+
+.rules-text {
+    color: var(--font-colour);
+    font-size: 1.1em;
+    line-height: 1.8;
+    flex: 1;
+}
+
+#rules-container h1 {
+    text-align: center;
+    color: var(--font-colour);
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    margin-top: 0;
+}
+
+.rules-text p {
+    margin-bottom: 15px;
+}
+
+.rules-text ol {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.rules-text li {
+    margin-bottom: 15px;
+    padding-left: 10px;
+    color: var(--font-colour)
+}
+
+.rules-text ol li{
+    color: var(--font-colour)
+}
+
+
+.rules-text h3 {
+    text-align: center;
+    color: var(--font-colour);
+    margin-top: 40px;
+    font-style: italic;
+    font-size: 1.3em;
+}
+
+.rules-text br {
+    display: block;
+    content: "";
+    margin: 5px 0;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--button-background-colour);
+    color: var(--font-colour);
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-end;
+    margin-top: 10px;
+}
+
+.back-button:hover {
+    background-color: var(--font-colour);
+    color: var(--background-colour);
+}
