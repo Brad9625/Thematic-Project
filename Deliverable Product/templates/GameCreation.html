@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Game Creator{% endblock %}
+
+{% block css_injection %}
+<link rel="stylesheet" href="{{ url_for('static', filename='GameCreation.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="new_game_header">
+    <h1>Start a New Game</h1>
+    <p>Each game requires a minimum of</p>
+    <p class="requirements">One Fugitive</p>
+    <p class="requirements">Two Detectives</p>
+    
+    
+</div>
+
+{% endblock %}

@@ -13,7 +13,7 @@ def rules():
 
 @app.route("/play")
 def play():
-    return render_template("GameScreen.html")
+    return render_template("GameCreation.html")
 
 @app.route("/join")
 def join():

@@ -1,3 +1,10 @@
+
+
+
+{% block css_injection %}
+<link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+{% endblock %}
+
 <body>
 
     <button class="menu-toggle" id="menuToggle">☰</button>
