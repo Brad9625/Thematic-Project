@@ -10,11 +10,60 @@
 
 <div class="new_game_header">
     <h1>Start a New Game</h1>
-    <p>Each game requires a minimum of</p>
-    <p class="requirements">One Fugitive</p>
-    <p class="requirements">Two Detectives</p>
-    
-    
+
+    <p>Each game requires a minimum of:</p>
+    <p class="requirements"><strong>One</strong> Fugitive</p>
+    <p class="requirements"><strong>Two</strong> Detectives</p>
 </div>
+
+<div class="buttons">
+    <button onclick="createGame()" class="button">Start New Game</button>
+    <button onclick="joinGame()" class="button">Join Game</button>
+</div>
+
+<div id="lobby" style="display:none;">
+
+    <h2>Lobby</h2>
+
+    <p>Game Code: <strong id="game_code"></strong></p>
+
+    <h3>Players</h3>
+
+    <ul id="player_list"></ul>
+
+</div>
+
+
+<div id="join_lobby" style="display:none;">
+    <h2>Join Game</h2>
+
+    <div class="join_row">
+        <div class="inputs">
+            <input type="text" id="nickname_input" placeholder="Enter Nickname">
+            <input type="text" id="join_code_input" placeholder="Enter Game Code">
+        </div>
+        <button onclick="submitJoin()" class="button">Join</button>
+    </div>
+
+</div>
+
+<div id="start_game"> 
+    <div class="buttons" style="display: none;">
+        <button onclick="start_game()" class="button">Start Game</button>
+        <button onclick="reset_lobby()" class="button">Reset Lobby</button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script src="{{ url_for('static', filename='GameCreation.js') }}"></script>
+
 
 {% endblock %}

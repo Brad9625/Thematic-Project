@@ -1,10 +1,11 @@
 :root{
-    --background-colour: #ffffff;
-    --font-colour: #080808;
+    --background-colour: #888888;
+    --font-colour: #000000cc;
     --button-background-colour: #e0e0e0d0;
     --container-background-colour: #d3d3d3;
     --title-text-size: 1em;
     --button-text-size: 1em;
+    --font: Georgia, 'Times New Roman', Times, serif;
 
 }   
 
@@ -13,6 +14,7 @@
     --font-colour: #ffffff;
     --container-background-colour: #080808;
     --button-background-colour: #2c2c2c;
+    --font: Georgia, 'Times New Roman', Times, serif;
 }
 
 

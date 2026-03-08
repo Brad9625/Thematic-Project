@@ -1,10 +1,124 @@
 
 
+.new_game_header{
+    background-color: var(--background-colour);
+    padding: 10px 50px 10px 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 2%;
+    width: fit-content;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
 
 .new_game_header h1{
     font-size: 2em;
     margin-bottom: 20px;
     text-align: center;
     color: var(--font-colour);
+    font-family: var(--font);
 
+}
+
+.new_game_header p{
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    text-align: center;
+    color: var(--font-colour);
+    font-family: var(--font);
+}
+
+.requirements p{
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+
+.buttons{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 2.5%;
+}
+
+.buttons button{
+    background-color: var(--button-background-colour);
+    border: 2px solid var(--border-color);
+    color: var(--font-colour);
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 5px;
+    font-family: var(--font);
+}
+
+
+.join_row{
+    display: flex;
+    gap: 20px;
+    align-items: flex-end; /* aligns button with bottom input */
+    margin-top: 2.5%;
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+
+
+
+
+
+
+
+#lobby{
+    margin-top: 2.5%;
+    background-color: var(--background-colour);
+    padding: 10px 50px 10px 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+#join_lobby{
+    background-color: var(--background-colour);
+    border: 2px solid var(--border-color);
+    color: var(--font-colour);
+    margin-top: 2%;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 5px;
+    font-family: var(--font);
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+}
+
+#join_lobby button{
+    background-color: var(--button-background-colour);
+    border: 2px solid var(--border-color);
+    color: var(--font-colour);
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 5px;
+    font-family: var(--font);
+}
+
+#join_lobby input{
+    background-color: var(--button-background-colour);
+    border: 2px solid var(--border-color);
+    color: var(--font-colour);
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 5px;
+    font-family: var(--font);
 }
