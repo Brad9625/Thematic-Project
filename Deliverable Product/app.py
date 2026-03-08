@@ -48,6 +48,8 @@ def play():
 
 
 # these 2 funcs are placeholders, will be edited
+
+"""
 @socketio.on("create_game")
 def create_game():
 
@@ -75,10 +77,22 @@ def join_game(data):
             "code": code,
             "players": games[code]
         }, to=code)
+"""
+
+
 
 
 @app.route("/maps", methods=["GET"])
 def get_maps():
+    """gets the maps from the server
+
+    Returns:
+        list: {
+            int: mapID,
+            str: mapName,
+            file: mapThumb
+        }
+    """
     r = requests.get(f"{url}/maps")
     if r.status_code == 200:
         return jsonify(r.json())
@@ -88,6 +102,28 @@ def get_maps():
 
 @app.route("/map/<int:map_id>", methods=["GET"])
 def get_map(map_id):
+    """gets the info for a specified map
+
+    Args:
+        map_id (int): the id of the map to get
+
+    Returns:
+        dict: {
+            int: mapID,
+            str: mapName,
+            file: mapImage,
+            str: mapThumb,
+            int: mapWidth,
+            int: mapHeight,
+            list: locations {
+                {
+                int: location,
+                int: xPos,
+                int: yPos
+                }
+            }
+        }
+    """
     r = requests.get(f"{url}/maps/{map_id}")
     if r.status_code == 200:
         return jsonify(r.json())
@@ -97,6 +133,21 @@ def get_map(map_id):
 
 @app.route("/games", methods=["GET"])
 def get_games():
+    """Obtains a list of games from the server 
+
+    Returns:
+        int: gameID,
+        str: gameName,
+        int: mapID,
+        str: mapName,
+        file: mapThumb,
+        str: status,
+        list: players {
+            int: playerID,
+            str: playerName
+        }
+
+    """
     r = requests.get(f"{url}/games")
     if r.status_code == 200:
         return jsonify(r.json())
