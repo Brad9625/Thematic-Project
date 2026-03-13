@@ -16,23 +16,55 @@
 
         <div class="rules-text">
             <p> Here is a brief summary of the rules. </p>
-            <ol>
-                <li><strong>Objectives: <br>- Detectives win by locating and capturing Mr X. <br>- Mr X wins by evading capture until the final round or if detectives cannot move. </strong></li>
-                <li><strong> Players and Roles: <br>- 2-6 Players. <br>- 1 player is secretely chosen to be Mr. X. <br>- Others are Detectives </strong> </li>
-                <li><strong> Game Components: <br>- Game board (map of London). <br>- Player token, Transport tickets: Taxi, Bus, Underground<br>- Secret and Double Move tickets (Mr X only)<br>- Mr X movement log (hidden record)</strong></li>
-                <li><strong> Setup: <br>- All players have random starting locations.<br>- Mr X's location is hidden from detectives.<br>- Each player transport tickets.<br>- Mr X receives additional Secret and Double Move tickets. </strong></li>
-                <li><strong> Turn Order: <br>- Mr X moves first, followed by detectives in clockwise order</strong></li>
-                <li><strong> Movement Rules: <br>- Players move along connected routes using tickets<br>-- Taxi (short routes)<br>-- Bus (medium routes)<br>-- Underground (long routes)<br>- Detectives cannot share locations. </strong></li>
-                <li><strong> Mr X's Special Rules: <br>- Mr X records every move secretly <br>- His location is revealed on specfic rounds.<br>- Use Secret Tickets to hide transport type<br>- Double Move Tickets to move twice in one turn</strong></li>      
-                <li><strong> Capture Rules: <br>- If a detective lands on Mr X, Mr X is captured and the game ends.</strong></li>
-                <li><strong> Winning The Game: <br>- Detectives win by capturing Mr X.<br>- Mr X wins by surviving all rounds or if detectives cannot move. </strong></li>
-                <li><strong> Key Restrictions: <br>- Detectives cannot use Secret or Double Move tickets.<br>- Used tickets go to Mr X. <br>- Mr X cannot move onto a detective's space .</strong></li>
-            </ol>
+            <p>
+            One Player is Mr X, while the other players are detectives trying to capture him.
+            All Players move by using Taxi, Bus, and Underground tickets. Mr X's location is hidden but revealed on specfic rounds,
+            and Mr X has special tickets that he can use. Detectives win by capturing Mr X, Mr X wins if he doesn't get captured or detectives cannot move.
+            </p>
+
+            <button class="expand-rules" onclick="toggleRules()">Expand</button>
+
+            <div id="mainRules" style="display: none;">
+                <ol>
+                    <li><strong>Objectives: <br>- Detectives win by locating and capturing Mr X. <br>- Mr X wins by evading capture until the final round or if detectives cannot move. </strong></li>
+                    <li><strong> Players and Roles: <br>- 2-6 Players. <br>- 1 player is secretely chosen to be Mr. X. <br>- Others are Detectives </strong> </li>
+                    <li><strong> Game Components: <br>- Game board (map of London). <br>- Player token, Transport tickets: Taxi, Bus, Underground<br>- Secret and Double Move tickets (Mr X only)<br>- Mr X movement log (hidden record)</strong></li>
+                    <li><strong> Setup: <br>- All players have random starting locations.<br>- Mr X's location is hidden from detectives.<br>- Each player transport tickets.<br>- Mr X receives additional Secret and Double Move tickets. </strong></li>
+                    <li><strong> Turn Order: <br>- Mr X moves first, followed by detectives in clockwise order</strong></li>
+                    <li><strong> Movement Rules: <br>- Players move along connected routes using tickets<br>-- Taxi (short routes)<br>-- Bus (medium routes)<br>-- Underground (long routes)<br>- Detectives cannot share locations. </strong></li>
+                    <li><strong> Mr X's Special Rules: <br>- Mr X records every move secretly <br>- His location is revealed on specfic rounds.<br>- Use Secret Tickets to hide transport type<br>- Double Move Tickets to move twice in one turn</strong></li>      
+                    <li><strong> Capture Rules: <br>- If a detective lands on Mr X, Mr X is captured and the game ends.</strong></li>
+                    <li><strong> Winning The Game: <br>- Detectives win by capturing Mr X.<br>- Mr X wins by surviving all rounds or if detectives cannot move. </strong></li>
+                    <li><strong> Key Restrictions: <br>- Detectives cannot use Secret or Double Move tickets.<br>- Used tickets go to Mr X. <br>- Mr X cannot move onto a detective's space .</strong></li>
+                </ol>
+            </div>
+
+
             <h3> !!Good Look and may the best Player win!!</h3>
         </div>
         <button class="back-button" onclick="history.back()">← Back</button>
     </div>
 
 </body>
+
+<script>
+
+    function toggleRules() {
+        const rules = document.getElementById("mainRules");
+        const button = event.target;
+
+        if (rules.style.display == "none") {
+            rules.style.display = "block";
+            button.textContent = "Hide Main Rules";
+        } else {
+            rules.style.display = "none";
+            button.textContent = "Show Main Rules";
+
+        }
+    }
+
+
+
+</script>
 
 {% endblock %}

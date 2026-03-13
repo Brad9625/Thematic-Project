@@ -77,3 +77,15 @@
     background-color: var(--font-colour);
     color: var(--background-colour);
 }
+
+.expand-rules {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: var(--button-background-colour);
+    color: var(--font-colour);
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+}

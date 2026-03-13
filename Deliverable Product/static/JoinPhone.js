@@ -150,28 +150,10 @@ assignedNote.textContent = 'Role: ' + role;
 
 // WebSocket + game-code connection logic
 let ws = null;
+
 const statusEl = document.getElementById('status');
-const gameCodeInput = document.getElementById('gameCode');
-const copyLinkBtn = document.getElementById('copyLinkBtn');
-const connectBtn = document.getElementById('connectBtn');
 
-            // populate game code input (if present)
-            if (savedCode) gameCodeInput.value = savedCode;
-
-            // copy invite link to clipboard
-            copyLinkBtn.addEventListener('click', async () => {
-                const code = (gameCodeInput.value || '').trim();
-                if (!code) { statusEl.textContent = 'Enter a game code to copy link'; return; }
-                const base = window.location.href.split('?')[0];
-                const link = base + '?player=' + encodeURIComponent(playerName) + '&game=' + encodeURIComponent(code);
-                try {
-                    await navigator.clipboard.writeText(link);
-                    statusEl.textContent = 'Invite link copied';
-                } catch (e) {
-                    // fallback
-                    window.prompt('Copy this link', link);
-                }
-            });
+/* This part needs changing to connect without the button
 
             // connect / join logic
             connectBtn.addEventListener('click', () => {
@@ -216,7 +198,7 @@ const connectBtn = document.getElementById('connectBtn');
                     } catch (e) { console.error(e); }
                 });
             });
-
+*/
             // Send move
             document.getElementById('confirmMove').addEventListener('click', () => {
                 const moveType = document.getElementById('moveType').value;
@@ -236,7 +218,7 @@ const connectBtn = document.getElementById('connectBtn');
             // Optional: allow pressing Enter to submit destination
             document.getElementById('destination').addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') document.getElementById('confirmMove').click();
-            });
+            }); 
 
             // Notes box: autosave to localStorage per player+game
             const notesEl = document.getElementById('playerNotes');
@@ -244,7 +226,7 @@ const connectBtn = document.getElementById('connectBtn');
             const notesStatus = document.getElementById('notesStatus');
 
             function getNotesKey() {
-                const code = (gameCodeInput && gameCodeInput.value && gameCodeInput.value.trim()) || params.get('game') || localStorage.getItem('gameCode') || 'global';
+                const code = params.get('game') || localStorage.getItem('gameCode') || 'global';
                 return 'notes::' + code + '::' + playerName;
             }
 
@@ -274,3 +256,17 @@ const connectBtn = document.getElementById('connectBtn');
                     });
                 }
             }
+
+            // toggle Notes
+            function toggleNotes() {
+            const notes = document.getElementById("notes-section");
+            
+
+            if (notes.style.display == "none") {
+                notes.style.display = "block";
+                button.textContent = "Hide Main Rules";
+            } else {
+                notes.style.display = "none";
+            
+            }
+        }
