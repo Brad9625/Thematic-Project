@@ -153,7 +153,7 @@ let ws = null;
 
 const statusEl = document.getElementById('status');
 
-/* This part needs changing to connect without the button
+
 
             // connect / join logic
             connectBtn.addEventListener('click', () => {
@@ -164,7 +164,7 @@ const statusEl = document.getElementById('status');
                 localStorage.setItem('gameCode', code);
 
                 // TODO: set your server URL here
-                const url = 'ws://http://trinity-developments.co.uk/phone?player=' + encodeURIComponent(playerName) + '&code=' + encodeURIComponent(code);
+                const url = 'ws://trinity-developments.co.uk/phone?player=' + encodeURIComponent(playerName) + '&code=' + encodeURIComponent(code);
                 ws = new WebSocket(url);
                 statusEl.textContent = 'Connecting...';
 
@@ -198,7 +198,7 @@ const statusEl = document.getElementById('status');
                     } catch (e) { console.error(e); }
                 });
             });
-*/
+
             // Send move
             document.getElementById('confirmMove').addEventListener('click', () => {
                 const moveType = document.getElementById('moveType').value;
