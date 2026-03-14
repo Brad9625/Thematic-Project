@@ -154,28 +154,19 @@ let ws = null;
 const statusEl = document.getElementById('status');
 
 
-
-            // connect / join logic
-            connectBtn.addEventListener('click', () => {
-                if (ws && ws.readyState === WebSocket.OPEN) { ws.close(); connectBtn.textContent = 'Join Game'; return; }
-
-                const code = (gameCodeInput.value || '').trim();
-                if (!code) { statusEl.textContent = 'Enter a game code'; return; }
-                localStorage.setItem('gameCode', code);
-
                 // TODO: set your server URL here
-                const url = 'ws://trinity-developments.co.uk/phone?player=' + encodeURIComponent(playerName) + '&code=' + encodeURIComponent(code);
+                const url = 'ws://trinity-developments.co.uk/phone?player=' + encodeURIComponent(playerName);
                 ws = new WebSocket(url);
                 statusEl.textContent = 'Connecting...';
 
                 ws.addEventListener('open', () => {
                     statusEl.textContent = 'Connected to ' + code;
-                    connectBtn.textContent = 'Disconnect';
                 });
+
                 ws.addEventListener('close', () => {
                     statusEl.textContent = 'Disconnected';
-                    connectBtn.textContent = 'Join Game';
                 });
+
                 ws.addEventListener('error', () => {
                     statusEl.textContent = 'Connection error';
                 });
@@ -197,7 +188,6 @@ const statusEl = document.getElementById('status');
                         }
                     } catch (e) { console.error(e); }
                 });
-            });
 
             // Send move
             document.getElementById('confirmMove').addEventListener('click', () => {
