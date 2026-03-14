@@ -44,9 +44,9 @@ def rules():
 def play():
     return render_template("GameCreation.html")
 
-
-
-
+@app.route("/phone")
+def phone():
+    return render_template("JoinPhone.html")
 
 
 

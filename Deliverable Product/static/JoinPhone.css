@@ -18,10 +18,11 @@ body {
 
 .phone-wrap {
     max-width: 360px;
+    height: 640px;
     width: 100%;
     margin: 0 auto;
-    background: rgba(0,0,0,0.8);
-    border: 2px solid #fff;
+    background: #0f172a;
+    border: 2px solid #ffffff6c;
     padding: 12px;
     border-radius: 8px;
     box-sizing: border-box;
@@ -53,10 +54,10 @@ h1 {
 }
 
 .ticket { 
-    border:1px solid #fff; 
+    border:1px solid #333444; 
     padding:8px; 
     border-radius:6px; 
-    background:#000; 
+    background:#040a24; 
     color:#fff; 
     font-family:'Lucida Console', monospace; 
     display:flex; 
@@ -82,13 +83,14 @@ h1 {
 }
 
 .big-btn {
-    border:2px solid #fff; 
+    border:2px solid #333444; 
     width:100%; 
     padding:10px; 
     font-size:16px; 
-    background:#000;  
+    background: #040a24;  
     color:#fff; 
-    cursor:pointer; 
+    cursor:pointer;
+    border-radius: 10px; 
 }
             
 input[type="number"], input[type="text"] { 
@@ -116,18 +118,30 @@ textarea {
     color:#fff; 
     margin-top:6px; 
 }
-            
-.small-btn { 
+.small-btn {   
     padding:8px 10px; 
-    background:transparent; 
-    border:1px solid #fff; 
-    color:#fff; 
+    background: #040a24; 
+    border:1px solid #333444; 
+    color: #fff; 
     cursor:pointer; 
-    font-size:14px; 
+    font-size:14px;
+    border-radius: 10px; 
 }
-            
+
 .status { 
     font-size:12px; 
     color:#ccc; 
     margin-top:8px; 
+}
+
+.show-notes {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #040a24;
+    border:2px solid #333444; 
+    color: #fff;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
 }
