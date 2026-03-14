@@ -47,10 +47,7 @@
     <div class="lobby_center">
         <p>Game Code</p>
         <strong id="game_code"></strong>
-            <img src="static/images/qr_code.png" alt="">
-        <div class="qr_space">
-            
-        </div>
+        <div class="qr_space" id="qr_code"></div>
         <p class="players_title">
             Players
         </p>
@@ -95,6 +92,7 @@
 
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 <script src="{{ url_for('static', filename='GameCreation.js') }}"></script>
 

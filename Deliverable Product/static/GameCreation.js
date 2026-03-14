@@ -75,7 +75,7 @@ function createGame() {
     const leaderName = document.getElementById("leader_name_input").value.trim();
 
     if (!leaderName || !gameName || isNaN(playerCount) || playerCount < 3) {
-        showTopMessage("Please enter a the game details");
+        showTopMessage("Please enter a the game details correctly.");
         return;
     }   
 
@@ -133,10 +133,14 @@ socket.on("game_created", (data) => {
     document.getElementById("create_game_box").style.display = "none";
 
     updatePlayers(data.players, data.maxPlayers, data.gameName);
+    generateQRCode(data.code);
 
     if (currentPlayerName === currentHost) {
         document.getElementById("start_game").style.display = "block";
     }
+
+    console.log(data);
+    console.log("maxPlayers:", data.maxPlayers);
 });
 
 socket.on("player_update", (data) => {
@@ -212,6 +216,23 @@ socket.on("joined_game", (data) => {
 function resetLobby() {
     window.location.reload();
 }
+
+
+function generateQRCode(gameCode) {
+    const qrBox = document.getElementById("qr_code");
+    if (!qrBox) return;
+
+    qrBox.innerHTML = "";
+
+    const joinUrl = `${window.location.origin}/phone?code=${gameCode}`;
+
+    new QRCode(qrBox, {
+        text: joinUrl,
+        width: 180,
+        height: 180
+    });
+}
+
 
 socket.on("game_started", function(data) {
     alert("Game started!");

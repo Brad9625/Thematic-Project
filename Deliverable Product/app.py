@@ -44,9 +44,6 @@ def rules():
 def play():
     return render_template("GameCreation.html")
 
-@app.route("/phone")
-def phone():
-    return render_template("JoinPhone.html")
 
 
 
@@ -70,15 +67,16 @@ def create_game(data=None):
     map_id = data.get("mapId", 1)
     game_length = data.get("gameLength", "short")
 
-
+    try:
+        max_players = max(3, int(data.get("maxPlayers", 3)))
+    except (ValueError, TypeError):
+        max_players = 3
 
     create_response = requests.post(f"{url}/games", json={
         "name": game_name,
         "mapId": map_id,
         "gameLength": game_length
     })
-
-
 
     if create_response.status_code not in [200, 201]:
         emit("game_error", {"error": "Failed to create game"})
@@ -97,6 +95,7 @@ def create_game(data=None):
 
     join_data = join_response.json()
     host_player_id = join_data["playerId"]
+
     lobby_response = requests.get(f"{url}/games/{code}")
 
     if lobby_response.status_code != 200:
@@ -106,15 +105,12 @@ def create_game(data=None):
     lobby_data = lobby_response.json()
     player_names = [p["playerName"] for p in lobby_data["players"]]
 
-
-
-
-
     games[code] = {
         "gameName": game_name,
         "hostName": leader,
         "hostPlayerId": host_player_id,
-        "players": lobby_data["players"]
+        "players": lobby_data["players"],
+        "maxPlayers": max_players
     }
 
     join_room(code)
@@ -124,7 +120,8 @@ def create_game(data=None):
         "players": player_names,
         "gameName": game_name,
         "host": leader,
-        "playerId": host_player_id
+        "playerId": host_player_id,
+        "maxPlayers": max_players
     })
 
 
@@ -161,7 +158,7 @@ def join_game(data):
     player_names = [p["playerName"] for p in lobby_data["players"]]
 
 
-    
+
 
     if code not in games:
         games[code] = {
