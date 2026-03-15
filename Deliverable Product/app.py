@@ -2,6 +2,12 @@ from flask import Flask, render_template, request, jsonify
 from flask_socketio import SocketIO, join_room, emit
 import requests, random
 
+from flask import Flask, request, render_template, redirect
+from flask_socketio import SocketIO, send, emit, join_room, leave_room
+from map import Node, Location, Map
+from pawn import Pawn, MrX
+from random import sample
+from type import Type
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -9,6 +15,17 @@ socketio = SocketIO(app)
 
 games = {}
 
+players = {}
+pawns = []
+typeDict = {
+    "Red" : Type.Underground,
+    "Green" : Type.Bus,
+    "Yellow" : Type.Taxi,
+    "Black" : Type.Ferry
+}
+
+locationList = {}
+connectionList = []
 
 
 useTestServer = False
@@ -43,6 +60,10 @@ def rules():
 @app.route("/play")
 def play():
     return render_template("GameCreation.html")
+
+@app.route("/game/<code>")
+def game_screen(code):
+    return render_template("JoinPhone.html", game_code=code)
 
 
 
@@ -172,6 +193,8 @@ def join_game(data):
 
     join_room(code)
 
+    
+
     emit("player_update", {
         "code": code,
         "players": player_names,
@@ -207,10 +230,11 @@ def start_game_socket(data):
 
         emit("game_error", {"error": error_message})
         return
-
+    
     emit("game_started", {
         "code": code
     }, to=code)
+    return redirect("/game")
 
 
 
@@ -348,14 +372,53 @@ def player_moves(player_id):
         return jsonify({"error": "Failed to retrieve player moves"}), r.status_code
 
 
+def check_move(detective, locationTo, method):
+    for pawn in pawns:
+        if pawn._colour == detective:
+            currentPawn = pawn
+            break
+    if validateMove(currentPawn._position, locationTo, method):
+        if currentPawn.UseCard(typeDict[method]):
+            if currentPawn._colour == "clear":
+                currentPawn._count += 1
+            currentPawn._position = locationTo
+            return True, currentPawn
+
 @app.route("/move/<int:player_id>", methods=["POST"])
 def make_move(player_id):
+
     data = request.json
-    r = requests.post(f"{url}/players/{player_id}/moves", json=data)
-    if r.status_code in [200, 201]:
-        return jsonify(r.json())
+
+    detective = players[player_id]
+    locationTo = data['locationTo']
+    method = data['method']
+
+    success, result = check_move(detective, locationTo, method)
+
+    if success:
+        return jsonify({"status": "complete"})
     else:
-        return jsonify({"error": "Failed to make move"}), r.status_code
+        return jsonify({"error": result}), 400
+    
+
+@socketio.on("move")
+def makemove(data):
+
+    detective = players[data['player_id']]
+    locationTo = data['locationTo']
+    method = data['method']
+
+    success, result = check_move(detective, locationTo, method)
+
+    if success:
+        emit(
+            'detMove',
+            {
+                'detective': detective,
+                'locationTo': locationTo
+            },
+            broadcast=True
+        )
 
 
 
@@ -367,3 +430,14 @@ def phone():
 
 if __name__ == "__main__":
     socketio.run(app, debug=True)
+
+
+## New Validation ##
+def validateMove(initialPosition, toLoc, type):
+    found = False
+    for connection in connectionList:
+        if ((connection["locationA"] == initialPosition and connection["locationB"] == toLoc)
+        or (connection["locationB"] == initialPosition and connection["locationA"] == toLoc)
+        and (typeDict[type] == connection["type"] or typeDict[type] == Type.Ferry)):
+            found = True
+    return found

@@ -9,7 +9,15 @@ let currentHost = "";
 let currentPlayerId = null;
 
 
+socket.on("game_started", (data) => {
 
+  const code = data.code;
+
+  localStorage.setItem("currentGameCode", code);
+
+  window.location.href = "/game/" + encodeURIComponent(code);
+
+});
 
 
 // loading dots

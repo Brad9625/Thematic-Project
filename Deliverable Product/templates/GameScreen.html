@@ -113,6 +113,33 @@
 
    <script>
 
+
+    function movePlayer(playerName, locationId) {
+
+    const loc = mapLocations[locationId];
+    if (!loc) return;
+
+    let icon = playerIcons[playerName];
+
+    if (!icon) {
+        icon = createPlayerIcon(playerName);
+    }
+
+    icon.style.left = loc.x + "px";
+    icon.style.top = loc.y + "px";
+}
+
+socket.on("detMove", (data) => {
+
+    console.log("Move received:", data);
+
+    const player = data.detective;
+    const location = data.locationTo;
+
+    movePlayer(player, location);
+
+});
+
     // --- New Game / Game Code modal logic ---
     const newGameBtn = document.getElementById('newGameBtn');
     const gameModal = document.getElementById('gameCodeModal');
