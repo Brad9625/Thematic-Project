@@ -4,7 +4,7 @@ let playerName = params.get('player') || '';
 let role = params.get('role') || 'Detective';
 
 // If a game code is present, try to read stored role assignments for this game
-const savedCode = params.get('game') || localStorage.getItem('gameCode') || '';
+const savedCode = params.get('game') || localStorage.getItem('gameId') || '';
 
 // If no player name passed but a game exists, generate a unique player name (Player1, Player2, ...)
 if (!playerName && savedCode) {
@@ -40,7 +40,7 @@ if (!params.get('player')) {
 }
 
 function ensureRoleForGame() {
-    const code = params.get('game') || localStorage.getItem('gameCode') || '';
+    const code = params.get('game') || localStorage.getItem('gameId') || '';
     if (!code) return;
     let map = {};
     try { map = JSON.parse(localStorage.getItem('game::' + code + '::roles') || '{}'); } catch (e) { map = {}; }
@@ -152,15 +152,16 @@ assignedNote.textContent = 'Role: ' + role;
 let ws = null;
 
 const statusEl = document.getElementById('status');
-
+const urlparams = new URLSearchParams(location.search);
+const gameId = urlparams.get('game');
 
                 // TODO: set your server URL here
-                const url = 'ws://trinity-developments.co.uk/phone?player=' + encodeURIComponent(playerName);
+                const url = 'ws://trinity-developments.co.uk/phone?player=' + encodeURIComponent(playerName) + '&code=' + encodeURIComponent(gameId);
                 ws = new WebSocket(url);
                 statusEl.textContent = 'Connecting...';
 
                 ws.addEventListener('open', () => {
-                    statusEl.textContent = 'Connected to ' + code;
+                    statusEl.textContent = 'Connected to ' + gameId;
                 });
 
                 ws.addEventListener('close', () => {
