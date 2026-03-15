@@ -261,3 +261,22 @@ const gameId = urlparams.get('game');
             
             }
         }
+
+
+        const playerMarkers = {};
+
+function createMarker(player) {
+
+    const board = document.getElementById("board-container");
+
+    const marker = document.createElement("div");
+
+    marker.className = "player-marker";
+    marker.innerText = player[0];
+
+    board.appendChild(marker);
+
+    playerMarkers[player] = marker;
+
+    return marker;
+}
