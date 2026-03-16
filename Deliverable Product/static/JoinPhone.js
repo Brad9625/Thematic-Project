@@ -35,19 +35,21 @@ async function loadMap(mapId) {
 
 socket.on("game_started", async (data) => {
 
+    console.log("Game started", data);
+
+    // make sure map nodes are loaded
     if (Object.keys(nodePositions).length === 0) {
         await loadMap(1);
     }
 
-    console.log("Game started", data);
-
+    // show markers
     data.pawns.forEach(pawn => {
         showMarker(pawn.colour, pawn.location);
     });
 
 });
 
-socket.emit("join_room_code", { code: gameId });
+
 
 function showMarker(colour, location) {
 
