@@ -16,6 +16,15 @@ body {
     padding-top: 10px;
 }
 
+
+.marker{
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background-color: red;
+}
+
 .phone-wrap {
     max-width: 360px;
     height: 640px;

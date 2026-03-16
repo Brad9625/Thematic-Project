@@ -3,8 +3,68 @@ const params = new URLSearchParams(location.search);
 let playerName = params.get('player') || '';
 let role = params.get('role') || 'Detective';
 
+const socket = io();
+
+const gameCode = window.location.pathname.split("/").pop();
+
+socket.emit("join_room_code", {
+    code: gameCode
+});
+
 // If a game code is present, try to read stored role assignments for this game
 const savedCode = params.get('game') || localStorage.getItem('gameId') || '';
+
+//allow markers to show upon game start
+let nodePositions = {};
+
+async function loadMap(mapId) {
+
+    const res = await fetch("/map/" + mapId);
+    const map = await res.json();
+
+    map.locations.forEach(loc => {
+
+        nodePositions[loc.location] = {
+            x: loc.xPos,
+            y: loc.yPos
+        };
+
+    });
+
+}
+
+socket.on("game_started", async (data) => {
+
+    if (Object.keys(nodePositions).length === 0) {
+        await loadMap(1);
+    }
+
+    console.log("Game started", data);
+
+    data.pawns.forEach(pawn => {
+        showMarker(pawn.colour, pawn.location);
+    });
+
+});
+
+socket.emit("join_room_code", { code: gameId });
+
+function showMarker(colour, location) {
+
+    const marker = document.getElementById(colour.toLowerCase());
+
+    if (!marker) return;
+
+    const pos = nodePositions[location];
+
+    if (!pos) return;
+
+    marker.style.left = pos.x + "px";
+    marker.style.top = pos.y + "px";
+    marker.style.display = "block";
+
+}
+
 
 // If no player name passed but a game exists, generate a unique player name (Player1, Player2, ...)
 if (!playerName && savedCode) {
@@ -265,18 +325,19 @@ const gameId = urlparams.get('game');
 
         const playerMarkers = {};
 
-function createMarker(player) {
+window.addEventListener("load", async () => {
 
-    const board = document.getElementById("board-container");
+    await loadMap(1);   // replace 1 with the correct mapId
 
-    const marker = document.createElement("div");
+});
 
-    marker.className = "player-marker";
-    marker.innerText = player[0];
+socket.on("detMove", data => {
+    const marker = document.getElementById(data.detective.toLowerCase());
+    const pos = nodePositions[data.locationTo];
 
-    board.appendChild(marker);
-
-    playerMarkers[player] = marker;
-
-    return marker;
-}
+    if (marker && pos) {
+        marker.style.left = pos.x + "px";
+        marker.style.top = pos.y + "px";
+        marker.style.display = "block";  // make sure it's visible
+    }
+});

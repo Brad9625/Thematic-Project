@@ -61,9 +61,9 @@ def rules():
 def play():
     return render_template("GameCreation.html")
 
-@app.route("/game/<code>")
+@app.route("/gameplay/<code>")
 def game_screen(code):
-    return render_template("JoinPhone.html", game_code=code)
+    return render_template("JoinPhone.html", code=code)
 
 
 
@@ -212,7 +212,10 @@ def join_game(data):
 
 
 
-
+@socketio.on("join_room_code")
+def join_room_code(data):
+    code = str(data["code"])
+    join_room(code)
 
 
 @socketio.on("start_game")
@@ -230,11 +233,39 @@ def start_game_socket(data):
 
         emit("game_error", {"error": error_message})
         return
+
+    lobby_response = requests.get(f"{url}/games/{code}")
+    lobby_data = lobby_response.json()
+
+    game_players = lobby_data["players"]
+
+    pawns.clear()
+    for player in game_players:
+
+        player_id = player["playerId"]
+        colour = player["colour"] 
+
+        if colour.lower() == "clear":
+            pawn = MrX(player["location"])
+        else:
+            pawn = Pawn(colour, player["location"])
+
+        pawns.append(pawn)
+
+        players[player_id] = colour
+
+    
     
     emit("game_started", {
-        "code": code
+        "code": code,
+        "pawns": [
+        {
+            "colour": pawn._colour.lower(),
+            "location": pawn._position
+        }
+        for pawn in pawns
+    ]
     }, to=code)
-    return redirect("/game")
 
 
 

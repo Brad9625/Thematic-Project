@@ -15,7 +15,7 @@ socket.on("game_started", (data) => {
 
   localStorage.setItem("currentGameCode", code);
 
-  window.location.href = "/game/" + encodeURIComponent(code);
+  window.location.href = "/gameplay/" + encodeURIComponent(code);
 
 });
 

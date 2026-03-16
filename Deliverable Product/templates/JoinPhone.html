@@ -3,12 +3,37 @@
 {% block title %}Rules{% endblock %}
 
 {% block content %}
+    <script>
+window.playerId = "{{ player_id|default('') }}";
 
+function move() {
+    const destination = Number(document.getElementById("destination").value);
+    const method = document.getElementById("moveType").value;
+
+    // Emit the move to the server
+    socket.emit("move", {
+        player_id: window.playerId,
+        locationTo: destination,
+        method: method
+    });
+
+    // Move the marker locally
+    const playerColour = role.toLowerCase() === "mr x" ? "clear" : role.toLowerCase();
+    const marker = document.getElementById(playerColour);
+    const pos = nodePositions[destination];
+
+    if (marker && pos) {
+        marker.style.left = pos.x + "px";
+        marker.style.top = pos.y + "px";
+        marker.style.display = "block";
+    }
+}
+</script>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='JoinPhone.css') }}">
-
+    
 
 
 
@@ -56,15 +81,15 @@
                 <div style="margin-bottom:8px;"><strong>Make a move</strong></div>
                 <div class="row">
                     <select id="moveType" class="col">
-                        <option value="taxi">Taxi</option>
-                        <option value="bus">Bus</option>
-                        <option value="tube">Underground</option>
-                        <option value="double">Double Move</option>
-                        <option value="black">Black Ticket</option>
+                        <option value="Yellow">Taxi</option>
+                        <option value="Green">Bus</option>
+                        <option value="Red">Underground</option>
+                        <option value="Double">Double Move</option>
+                        <option value="Black">Black Ticket</option>
                     </select>
                     <input id="destination" type="number" placeholder="Destination node" min="1" required />
                 </div>
-                <button id="confirmMove" class="big-btn" type="button">Confirm Move</button>
+                <button onclick="move()" id="confirmMove" class="big-btn" type="button">Confirm Move</button>
             </form>
 
             <div style="margin-top:10px;">
@@ -91,12 +116,19 @@
             <div id="board-container">
 
                 <!-- Map -->
-                <img id="game-map" src="http://trinity-developments.co.uk/images/leeds_map.png" alt="Game Map">>
+                <img id="game-map" src="http://trinity-developments.co.uk/images/leeds_map.png" alt="Game Map">
 
+                <div id="red" class="marker" style="z-index: 1; position: absolute; display: none;"></div>
+                <div id="green" class="marker" style="z-index: 1; position: absolute; display: none;"></div>
+                <div id="yellow" class="marker" style="z-index: 1; position: absolute; display: none;"></div>
+                <div id="blue" class="marker" style="z-index: 1; position: absolute; display: none;"></div>
+                <div id="black" class="marker" style="z-index: 1; position: absolute; display: none;"></div>
+                <div id="clear" class="marker" style="z-index: 1; position: absolute; display: none;"></div>
             </div>
       </div>
     </div>
 
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <script src="{{ url_for('static', filename='JoinPhone.js') }}"></script>
 
 

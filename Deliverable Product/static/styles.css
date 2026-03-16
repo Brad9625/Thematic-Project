@@ -90,6 +90,9 @@ main {
     border: 2px solid var(--border-color);
     background-color: var(--container-background-colour);
     box-sizing: border-box;
+    position: static;
+    z-index: 1;
+    left: 0;
 }
 
 /* RIGHT COLUMN */
@@ -195,6 +198,12 @@ main {
     color: linen;
 }
 
+#game-map{
+    margin: none;
+    position: absolute;
+    left: 0;
+}
+
 .rules-text p,
 .rules-text li {
     line-height: 1.5;
@@ -233,6 +242,22 @@ main {
     margin-top: 20px;
     box-sizing: border-box;
 }
+
+.marker{
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid white;
+    z-index: 5;
+}
+
+#red { background: red; }
+#green { background: green; }
+#yellow { background: yellow; }
+#blue { background: blue; }
+#black { background: black; }
+#clear { background: white; }
 
 /* RESPONSIVE: stack on smaller screens */
 @media (max-width: 1500px) {
